@@ -85,7 +85,19 @@
       thisProduct.id = id;
       thisProduct.data = data;
 
+      thisProduct.renderInMenu();
       console.log('new Product:', thisProduct);
+    }
+    renderInMenu() {
+      const thisProduct = this;
+
+      /* generateHTML based on template */
+
+      /* create element using utills.createElementFromHtml */
+
+      /* find menu container */
+
+      /* add element to menu */
     }
   }
 
