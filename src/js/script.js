@@ -54,16 +54,8 @@
     ),
   };
 
-  class Product{
-    constructor(){
-      const thisProduct = this;
-
-      console.log('new Product:', this Product);
-    }
-  }
-
   const app = {
-    initMenu: function(){
+    initMenu: function () {
       const testProduct = new Product();
       console.log('testProduct:', testProduct);
     },
@@ -79,6 +71,12 @@
       thisApp.initMenu();
     },
   };
+  class Product {
+    constructor() {
+      const thisProduct = this;
 
+      console.log('new Product:', thisProduct);
+    }
+  }
   app.init();
 }
