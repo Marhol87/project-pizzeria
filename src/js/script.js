@@ -85,6 +85,7 @@
       thisProduct.id = id;
       thisProduct.data = data;
 
+      thisProduct.initAccordion();
       thisProduct.renderInMenu();
       console.log('new Product:', thisProduct);
     }
@@ -104,6 +105,11 @@
       menuContainer.appendChild(thisProduct.element);
     }
   }
+
+  initAccordion(){
+    const thisProduct = this;
+
+}
 
   app.init();
 }
