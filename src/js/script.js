@@ -54,6 +54,15 @@
     ),
   };
 
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this;
+
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments:', element);
+    }
+  }
+
   const app = {
     initMenu: function () {
       const thisApp = this;
@@ -89,8 +98,10 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.amountWidgetElem();
       thisProduct.processOrder();
-      console.log('new Product:', thisProduct);
+
+      // console.log('new Product:', thisProduct);
     }
     renderInMenu() {
       const thisProduct = this;
@@ -128,6 +139,9 @@
       );
       thisProduct.imageWrapper = thisProduct.element.querySelector(
         select.menuProduct.imageWrapper
+      );
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(
+        select.menuProduct.amountWidget
       );
     }
 
@@ -172,6 +186,12 @@
         event.preventDefault();
         thisProduct.processOrder();
       });
+    }
+
+    initAmountWidget() {
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
     }
 
     processOrder() {
@@ -228,15 +248,6 @@
 
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price;
-      }
-    }
-
-    class AmountWidget{
-      constructor(element){
-        const thisWidget = this;
-
-        console.log('AmountWidget:', thisWidget);
-        console.log('constructor arguments:', element);
       }
     }
   }
