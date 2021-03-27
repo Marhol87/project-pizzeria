@@ -98,7 +98,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      thisProduct.amountWidgetElem();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
 
       // console.log('new Product:', thisProduct);
