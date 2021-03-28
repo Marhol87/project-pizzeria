@@ -93,6 +93,7 @@
       }
       thisWidget.value = newValue;
       thisWidget.input.value = thisWidget.value;
+      thisWidget.announce();
     }
     initActions() {
       const thisWidget = this;
@@ -245,6 +246,9 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function () {
+        thisProduct.processOrder();
+      });
     }
 
     processOrder() {
@@ -298,7 +302,8 @@
             }
           }
         }
-
+        // multiply price by amount
+        price *= thisProduct.amountWidget.value;
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price;
       }
