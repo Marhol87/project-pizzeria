@@ -83,7 +83,12 @@
       const thisWidget = this;
       const newValue = parseInt(value);
       /* TODO: Add validation */
-      if (thisWidget.value !== newValue && !isNaN(newValue)) {
+      if (
+        thisWidget.value !== newValue &&
+        !isNaN(newValue) &&
+        newValue >= settings.amountWidget.defaultMin &&
+        newValue <= settings.amountWidget.defaultMax
+      ) {
         thisWidget.value = newValue;
       }
       thisWidget.value = newValue;
@@ -92,8 +97,7 @@
     initActions() {
       const thisWidget = this;
 
-      thisWidget.input.addEventListener('change', function (event) {
-        event.preventDefault();
+      thisWidget.input.addEventListener('change', function () {
         thisWidget.setValue(thisWidget.input.value);
       });
       thisWidget.linkDecrease.addEventListener('click', function (event) {
@@ -104,6 +108,11 @@
         event.preventDefault();
         thisWidget.setValue(thisWidget.value + 1);
       });
+    }
+    announce() {
+      const thisWidget = this;
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
   }
 
