@@ -211,6 +211,7 @@
 
     processOrder() {
       const thisProduct = this;
+      console.log('processOrder');
 
       // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
@@ -261,10 +262,16 @@
           }
         }
         // multiply price by amount
-        price *= thisProduct.amountWidget.value;
-        // update calculated price in the HTML
-        thisProduct.dom.priceElem.innerHTML = price;
       }
+      console.log('price', price);
+      console.log(
+        'thisProduct.amountWidget.value',
+        thisProduct.amountWidget.value
+      );
+      price *= thisProduct.amountWidget.value;
+
+      // update calculated price in the HTML
+      thisProduct.dom.priceElem.innerHTML = price;
     }
   }
   class AmountWidget {
@@ -276,19 +283,20 @@
 
       thisWidget.getElements(element);
       thisWidget.initActions();
-      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.setValue(thisWidget.dom.input.value);
     }
     getElements(element) {
       const thisWidget = this;
+      thisWidget.dom = {};
 
       thisWidget.element = element;
-      thisWidget.input = thisWidget.element.querySelector(
+      thisWidget.dom.input = thisWidget.element.querySelector(
         select.widgets.amount.input
       );
-      thisWidget.linkDecrease = thisWidget.element.querySelector(
+      thisWidget.dom.linkDecrease = thisWidget.element.querySelector(
         select.widgets.amount.linkDecrease
       );
-      thisWidget.linkIncrease = thisWidget.element.querySelector(
+      thisWidget.dom.linkIncrease = thisWidget.element.querySelector(
         select.widgets.amount.linkIncrease
       );
       thisWidget.value = settings.amountWidget.defaultValue;
@@ -305,21 +313,21 @@
       ) {
         thisWidget.value = newValue;
       }
-      thisWidget.input.value = thisWidget.value;
+      thisWidget.dom.input.value = thisWidget.value;
       thisWidget.announce();
     }
     initActions() {
       const thisWidget = this;
 
-      thisWidget.input.addEventListener('change', function (event) {
+      thisWidget.dom.input.addEventListener('change', function (event) {
         event.preventDefault();
         thisWidget.setValue(thisWidget.input.value);
       });
-      thisWidget.linkDecrease.addEventListener('click', function (event) {
+      thisWidget.dom.linkDecrease.addEventListener('click', function (event) {
         event.preventDefault();
         thisWidget.setValue(thisWidget.value - 1);
       });
-      thisWidget.linkIncrease.addEventListener('click', function (event) {
+      thisWidget.dom.linkIncrease.addEventListener('click', function (event) {
         event.preventDefault();
         thisWidget.setValue(thisWidget.value + 1);
       });
@@ -371,11 +379,11 @@
     },
     init: function () {
       const thisApp = this;
-      // console.log('*** App starting ***');
-      // console.log('thisApp:', thisApp);
-      // console.log('classNames:', classNames);
-      // console.log('settings:', settings);
-      // console.log('templates:', templates);
+      console.log('*** App starting ***');
+      console.log('thisApp:', thisApp);
+      console.log('classNames:', classNames);
+      console.log('settings:', settings);
+      console.log('templates:', templates);
 
       thisApp.initData();
       thisApp.initMenu();
