@@ -269,6 +269,7 @@
         'thisProduct.amountWidget.value',
         thisProduct.amountWidget.value
       );
+      thisProduct.priceSingle = price;
       price *= thisProduct.amountWidget.value;
 
       // update calculated price in the HTML
@@ -278,7 +279,24 @@
       const thisProduct = this;
       app.cart.add(thisProduct);
     }
+    prepareCartProduct() {
+      const thisProduct = this;
+
+      const productSummary = {
+      id: thisProduct.id,
+      name: thisProduct.data.name,
+      amount: thisProduct.amountWidget.value,
+      priceSingle: thisProduct.priceSingle,
+      price: thisProduct.priceSingle * thisProduct.amountWidget.value,
+      params: (),
+    };
+    return productSummary;
   }
+
+  prepareCartProductParams(){
+    const thisProduct = this;
+  }
+
   class AmountWidget {
     constructor(element) {
       const thisWidget = this;
