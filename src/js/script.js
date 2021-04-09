@@ -277,7 +277,7 @@
     }
     addToCart() {
       const thisProduct = this;
-      app.cart.add(thisProduct);
+      app.cart.add(thisProduct.prepareCartProduct());
     }
     prepareCartProduct() {
       const thisProduct = this;
@@ -419,7 +419,20 @@
       });
     }
     add(menuProduct) {
-      // const thisCart = this;
+      const thisCart = this;
+
+      /* generateHTML based on template */
+      const generatedHTML = templates.cartProduct(menuProduct);
+
+      /* create element using utills.createElementFromHtml */
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+
+      /* find menu container */
+      const cartContainer = thisCart.dom.productList;
+
+      /* add element to menu */
+      cartContainer.appendChild(generatedDOM);
+
       console.log('adding product', menuProduct);
     }
   }
