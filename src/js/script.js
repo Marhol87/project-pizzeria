@@ -304,6 +304,7 @@
         const param = thisProduct.data.params[paramId];
 
         // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
+        // const params = { ingredients: { name: 'Ingredients', options: {} } };
         params[paramId] = {
           label: param.label,
           options: {},
