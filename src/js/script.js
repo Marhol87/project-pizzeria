@@ -458,14 +458,18 @@
       const thisCart = this;
       thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
       thisCart.totalNumber = 0;
-      thisCart.subTotalPrice = 0;
+      thisCart.subtotalPrice = 0;
       for (let product of thisCart.products) {
         thisCart.totalNumber += product.amount;
-        thisCart.subTotalPrice += product.price;
+        thisCart.subtotalPrice += product.price;
       }
-      if (thisCart.subTotalPrice > 0) {
+      if (thisCart.subtotalPrice > 0) {
         thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
       }
+      thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
+      thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
+      thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;
+      thisCart.dom.totalPrice.innerHTML = thisCart.totalPrice;
     }
   }
 
