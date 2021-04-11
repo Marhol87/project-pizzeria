@@ -453,6 +453,7 @@
       console.log('thisCartProduct', thisCartProduct);
 
       thisCartProduct.getElements(element);
+      thisCartProduct.initAmountWidget();
     }
 
     getElements(element) {
@@ -469,6 +470,17 @@
       thisCartProduct.dom.remove = element.querySelector(
         select.cartProduct.remove
       );
+    }
+
+    initAmountWidget() {
+      const thisCartProduct = this;
+
+      thisCartProduct.amountWidget = new AmountWidget(
+        thisCartProduct.dom.amountWidget
+      );
+      thisCartProduct.dom.amountWidget.addEventListener('updated', function () {
+        thisCartProduct();
+      });
     }
   }
 
