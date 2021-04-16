@@ -432,6 +432,13 @@
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(
         select.cart.totalNumber
       );
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      thisCart.dom.phone = thisCart.dom.wrapper.querySelector(
+        select.cart.phone
+      );
+      thisCart.dom.address = thisCart.dom.wrapper.querySelector(
+        select.cart.address
+      );
     }
     initActions() {
       const thisCart = this;
@@ -443,6 +450,10 @@
       });
       thisCart.dom.productList.addEventListener('remove', function (event) {
         thisCart.remove(event.detail.cartProduct);
+      });
+      thisCart.dom.form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        thisCart.sendOrder();
       });
     }
     add(menuProduct) {
@@ -492,6 +503,21 @@
       thisCart.products.splice(indexOfCartProduct, 1);
       cartProduct.dom.wrapper.remove();
       thisCart.update();
+    }
+
+    sendOrder() {
+      const thisCart = this;
+      const url = settings.db.url + '/' + settings.db.order;
+
+      payload = {
+        address: thisCart.dom.adress.value,
+        phone: thisCart.dom.phone.value,
+        totalPrice: thisCart.dom.totalPrice,
+        subtotalPrice: thisCart.dom.subtotalPrice,
+        totalNumber: thisCart.dom.totalNumber,
+        deliveryFee: thisCart.dom.deliveryFee,
+        products: [],
+      };
     }
   }
 
@@ -583,7 +609,7 @@
 
       thisApp.data = {};
       const url = settings.db.url + '/' + settings.db.product;
-      // console.log('url:', url);
+      console.log('url:', url);
 
       fetch(url)
         .then(function (rawResponse) {
@@ -595,7 +621,7 @@
           thisApp.data.products = parsedResponse;
 
           /* execute initMenu method */
-          app.initMenu();
+          thisApp.initMenu();
         });
 
       console.log('thisApp.data', JSON.stringify(thisApp.data));
@@ -605,8 +631,8 @@
       // console.log('*** App starting ***');
       // console.log('thisApp:', thisApp);
       // console.log('classNames:', classNames);
-      console.log('settings:', settings);
-      console.log('templates:', templates);
+      // console.log('settings:', settings);
+      // console.log('templates:', templates);
 
       thisApp.initData();
       // thisApp.initMenu();
