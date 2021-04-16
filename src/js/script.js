@@ -572,7 +572,10 @@
       const thisApp = this;
       // console.log('thisApp.data:', thisApp.data);
       for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]);
+        new Product(
+          thisApp.data.products[productData].id,
+          thisApp.data.products[productData]
+        );
       }
     },
     initData: function () {
@@ -580,7 +583,7 @@
 
       thisApp.data = {};
       const url = settings.db.url + '/' + settings.db.product;
-      console.log('url:', url);
+      // console.log('url:', url);
 
       fetch(url)
         .then(function (rawResponse) {
@@ -589,22 +592,24 @@
         .then(function (parsedResponse) {
           console.log('parsedResponse', parsedResponse);
           /* save parsedResponse as thisApp.data.products */
+          thisApp.data.products = parsedResponse;
 
           /* execute initMenu method */
+          app.initMenu();
         });
 
       console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
     init: function () {
       const thisApp = this;
-      console.log('*** App starting ***');
-      console.log('thisApp:', thisApp);
-      console.log('classNames:', classNames);
+      // console.log('*** App starting ***');
+      // console.log('thisApp:', thisApp);
+      // console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
 
       thisApp.initData();
-      thisApp.initMenu();
+      // thisApp.initMenu();
     },
     initCart: function () {
       const thisApp = this;
