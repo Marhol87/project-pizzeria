@@ -580,6 +580,20 @@
 
       thisApp.data = {};
       const url = settings.db.url + '/' + settings.db.product;
+      console.log('url:', url);
+
+      fetch(url)
+        .then(function (rawResponse) {
+          return rawResponse.json();
+        })
+        .then(function (parsedResponse) {
+          console.log('parsedResponse', parsedResponse);
+          /* save parsedResponse as thisApp.data.products */
+
+          /* execute initMenu method */
+        });
+
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
     init: function () {
       const thisApp = this;
