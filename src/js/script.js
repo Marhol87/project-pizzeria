@@ -510,8 +510,8 @@
       const url = settings.db.url + '/' + settings.db.order;
 
       const payload = {
-        address: thisCart.dom.adress['value'],
-        phone: thisCart.dom.phone['value'],
+        address: thisCart.dom.address.value,
+        phone: thisCart.dom.phone.value,
         totalPrice: thisCart.dom.totalPrice,
         subtotalPrice: thisCart.dom.subtotalPrice,
         totalNumber: thisCart.dom.totalNumber,
