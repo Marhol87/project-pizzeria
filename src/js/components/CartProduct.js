@@ -8,7 +8,7 @@ class CartProduct {
     thisCartProduct.name = menuProduct.name;
     thisCartProduct.amount = menuProduct.amount;
     thisCartProduct.priceSingle = menuProduct.priceSingle;
-    thisCartProduct.price = menuProduct.price;
+    thisCartProduct.price = menuProduct.priceSingle * menuProduct.amount;
     thisCartProduct.params = menuProduct.params;
     // console.log('thisCartProduct', thisCartProduct);
 
@@ -55,7 +55,7 @@ class CartProduct {
     });
 
     thisCartProduct.dom.wrapper.dispatchEvent(event);
-    console.log('remove');
+    // console.log('remove');
   }
 
   initActions() {
@@ -76,9 +76,9 @@ class CartProduct {
       id: thisCartProduct.id,
       name: thisCartProduct.name,
       amount: thisCartProduct.amountWidget.value,
-      priceSingle: thisCartProduct.data.priceSingle,
-      price: thisCartProduct.data.price,
-      params: thisCartProduct.data.params,
+      priceSingle: thisCartProduct.priceSingle,
+      price: thisCartProduct.price,
+      params: thisCartProduct.params,
     };
     return productSummary;
   }
