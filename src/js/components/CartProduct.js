@@ -1,5 +1,5 @@
-import { select } from './settings.js';
-import AmountWidget from './components/AmountWidget.js';
+import { select } from '../settings.js';
+import AmountWidget from './AmountWidget.js';
 
 class CartProduct {
   constructor(menuProduct, element) {
@@ -76,9 +76,9 @@ class CartProduct {
       id: thisCartProduct.id,
       name: thisCartProduct.name,
       amount: thisCartProduct.amountWidget.value,
-      priceSingle: thisCartProduct.priceSingle,
-      price: thisCartProduct.price,
-      params: thisCartProduct.params,
+      priceSingle: thisCartProduct.data.priceSingle,
+      price: thisCartProduct.data.price,
+      params: thisCartProduct.data.params,
     };
     return productSummary;
   }
