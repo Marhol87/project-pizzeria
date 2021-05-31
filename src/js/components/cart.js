@@ -62,7 +62,7 @@ class Cart {
     /* generateHTML based on template */
     const generatedHTML = templates.cartProduct(menuProduct);
 
-    /* create element using utills.createElementFromHtml */
+    /* create element using utils.createElementFromHtml */
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
     /* find menu container */
@@ -71,10 +71,10 @@ class Cart {
     /* add element to menu */
     cartContainer.appendChild(generatedDOM);
 
-    console.log('adding product', menuProduct);
+    // console.log('adding product', menuProduct);
 
     thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-    console.log('thisCart.products', thisCart.products);
+    // console.log('thisCart.products', thisCart.products);
 
     thisCart.update();
   }
