@@ -1,53 +1,54 @@
 import { select, settings } from '../settings.js';
+import BaseWidget from './BaseWidget.js';
 
-class AmountWidget {
+class AmountWidget extends BaseWidget {
   constructor(element) {
+    super(element, settings.amountWidget.defaultValue);
+
     const thisWidget = this;
 
-    console.log('AmountWidget:', thisWidget);
-    console.log('constructor arguments:', element);
+    // console.log('AmountWidget:', thisWidget);
+    // console.log('constructor arguments:', element);
 
     thisWidget.getElements(element);
     thisWidget.initActions();
-    thisWidget.setValue(thisWidget.dom.input.value);
   }
-  getElements(element) {
+  getElements() {
     const thisWidget = this;
     thisWidget.dom = {};
 
-    thisWidget.element = element;
-    thisWidget.dom.input = thisWidget.element.querySelector(
+    thisWidget.dom.input = thisWidget.dom.wrappper.querySelector(
       select.widgets.amount.input
     );
-    thisWidget.dom.linkDecrease = thisWidget.element.querySelector(
+    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(
       select.widgets.amount.linkDecrease
     );
-    thisWidget.dom.linkIncrease = thisWidget.element.querySelector(
+    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(
       select.widgets.amount.linkIncrease
     );
     thisWidget.value = settings.amountWidget.defaultValue;
   }
-  setValue(value) {
-    const thisWidget = this;
-    const newValue = parseInt(value);
-    /* TODO: Add validation */
-    if (
-      thisWidget.value !== newValue &&
-      !isNaN(newValue) &&
-      newValue >= settings.amountWidget.defaultMin &&
-      newValue <= settings.amountWidget.defaultMax
-    ) {
-      thisWidget.value = newValue;
-    }
-    thisWidget.dom.input.value = thisWidget.value;
-    thisWidget.announce();
+
+  isValid(value) {
+    return (
+      !isNan(value) &&
+      value >= settings.amountWidget.defaultMin &&
+      value <= settings.amountWidget.defaultMax
+    );
   }
+
+  renderValue() {
+    const thisWidget = this;
+
+    thisWidget.dom.input.value = thisWidget.value;
+  }
+
   initActions() {
     const thisWidget = this;
 
     thisWidget.dom.input.addEventListener('change', function (event) {
       event.preventDefault();
-      thisWidget.setValue(thisWidget.input.value);
+      thisWidget.setValue(thisWidget.dom.input.value);
     });
     thisWidget.dom.linkDecrease.addEventListener('click', function (event) {
       event.preventDefault();
@@ -57,14 +58,6 @@ class AmountWidget {
       event.preventDefault();
       thisWidget.setValue(thisWidget.value + 1);
     });
-  }
-  announce() {
-    const thisWidget = this;
-    const event = new CustomEvent('updated', {
-      bubbles: true,
-    });
-
-    thisWidget.element.dispatchEvent(event);
   }
 }
 
