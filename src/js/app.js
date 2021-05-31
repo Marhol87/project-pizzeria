@@ -12,6 +12,16 @@ const app = {
 
     thisApp.activatePage(thisApp.pages[0].id);
   },
+
+  activatePage: function (pageId) {
+    const thisApp = this;
+
+    /* add class "active" to matching pages, remove from non-matching */
+    for(let page)
+
+    /* add class "active" to matching links, remove from non-matching */
+  },
+
   initMenu: function () {
     const thisApp = this;
     for (let productData in thisApp.data.products) {
