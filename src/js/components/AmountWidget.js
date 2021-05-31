@@ -13,17 +13,15 @@ class AmountWidget extends BaseWidget {
     thisWidget.getElements(element);
     thisWidget.initActions();
   }
-  getElements() {
+  getElements(element) {
     const thisWidget = this;
     thisWidget.dom = {};
 
-    thisWidget.dom.input = thisWidget.dom.wrappper.querySelector(
-      select.widgets.amount.input
-    );
-    thisWidget.dom.linkDecrease = thisWidget.dom.wrapper.querySelector(
+    thisWidget.dom.input = element.querySelector(select.widgets.amount.input);
+    thisWidget.dom.linkDecrease = element.querySelector(
       select.widgets.amount.linkDecrease
     );
-    thisWidget.dom.linkIncrease = thisWidget.dom.wrapper.querySelector(
+    thisWidget.dom.linkIncrease = element.querySelector(
       select.widgets.amount.linkIncrease
     );
     thisWidget.value = settings.amountWidget.defaultValue;
@@ -31,7 +29,7 @@ class AmountWidget extends BaseWidget {
 
   isValid(value) {
     return (
-      !isNan(value) &&
+      !isNaN(value) &&
       value >= settings.amountWidget.defaultMin &&
       value <= settings.amountWidget.defaultMax
     );
