@@ -15,7 +15,6 @@ class AmountWidget extends BaseWidget {
   }
   getElements(element) {
     const thisWidget = this;
-    thisWidget.dom = {};
 
     thisWidget.dom.input = element.querySelector(select.widgets.amount.input);
     thisWidget.dom.linkDecrease = element.querySelector(
