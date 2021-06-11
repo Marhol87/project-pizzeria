@@ -1,3 +1,5 @@
+/* global Handlebars */ // eslint-disable-line no-unused-vars
+
 import BaseWidget from './BaseWidget.js';
 import utils from '../utils.js';
 import { select, settings } from '../settings.js';
