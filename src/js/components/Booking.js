@@ -10,6 +10,7 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.initTables();
   }
   getData() {
     const thisBooking = this;
@@ -194,6 +195,24 @@ class Booking {
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(
       select.booking.tables
     );
+    thisBooking.dom.div = thisBooking.dom.wrapper.querySelector(
+      select.booking.div
+    );
+    thisBooking.dom.duration = thisBooking.dom.wrapper.querySelector(
+      select.booking.duration
+    );
+    thisBooking.dom.ppl = thisBooking.dom.wrapper.querySelector(
+      select.booking.ppl
+    );
+    thisBooking.dom.starters = thisBooking.dom.wrapper.querySelector(
+      select.booking.starters
+    );
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(
+      select.booking.phone
+    );
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(
+      select.booking.address
+    );
   }
 
   initWidgets() {
@@ -212,6 +231,48 @@ class Booking {
     thisBooking.dom.wrapper.addEventListener('updated', function () {
       thisBooking.updateDOM();
     });
+
+    thisBooking.dom.div.addEventListener('reserved', function (event) {
+      thisBooking.initTables(event);
+    });
+  }
+  initTables(event) {
+    const thisBooking = this;
+  }
+  sendBooking() {
+    const thisBooking = this;
+    const url = settings.db.url + '/' + settings.db.booking;
+
+    const payload = {
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: parseInt(thisBooking.tables.value),
+      duration: parseInt(thisBooking.duration.value),
+      ppl: parseInt(thisBooking.ppl.value),
+      starters: [],
+      phone: parseInt(thisBooking.phone.value),
+      address: parseInt(thisBooking.address.value),
+    };
+
+    for (let starter of thisBooking.dom.starters) {
+      payload.starters.push(starter.getData());
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    fetch(url, options)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (parsedResponse) {
+        console.log('parsedResponse', parsedResponse);
+      });
   }
 }
 
