@@ -156,6 +156,10 @@
     line-height: 50px;
   }
 
+  .selected {
+    background-color: aqua;
+  }
+
   .table {
     @extend .h2;
     width: 70px;
