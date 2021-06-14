@@ -10,7 +10,7 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
-    thisBooking.initTables();
+    thisBooking.tableSelected = '';
   }
   getData() {
     const thisBooking = this;
@@ -195,7 +195,7 @@ class Booking {
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(
       select.booking.tables
     );
-    thisBooking.dom.div = thisBooking.dom.wrapper.querySelector(
+    thisBooking.dom.divTables = thisBooking.dom.wrapper.querySelector(
       select.booking.div
     );
     thisBooking.dom.duration = thisBooking.dom.wrapper.querySelector(
@@ -232,12 +232,21 @@ class Booking {
       thisBooking.updateDOM();
     });
 
-    thisBooking.dom.div.addEventListener('reserved', function (event) {
+    thisBooking.dom.divTables.addEventListener('reserved', function (event) {
       thisBooking.initTables(event);
     });
   }
   initTables(event) {
     const thisBooking = this;
+
+    const clickedElement = event.target;
+    const id = clickedElement.getAttribute('data-table');
+
+    if (id && clickedElement.classNames.contains('booked')) {
+            alert('Reserved');
+          } else if (id) { 
+            thisBooking.tableSelected = id;
+        }
   }
   sendBooking() {
     const thisBooking = this;
@@ -246,12 +255,12 @@ class Booking {
     const payload = {
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
-      table: parseInt(thisBooking.tables.value),
-      duration: parseInt(thisBooking.duration.value),
-      ppl: parseInt(thisBooking.ppl.value),
+      table: thisBooking.tables.value,
+      duration: thisBooking.duration.value,
+      ppl: thisBooking.ppl.value,
       starters: [],
-      phone: parseInt(thisBooking.phone.value),
-      address: parseInt(thisBooking.address.value),
+      phone: thisBooking.phone.value,
+      address: thisBooking.address.value,
     };
 
     for (let starter of thisBooking.dom.starters) {
